@@ -16,19 +16,74 @@ Enjoy a quick game of TicTacToe right from the comfort of your own VS Code works
 ## Usage
 Ok first open the repo in vscode. Please ensure you open the tictactoe folder. I.E lets say you save it as hacknight/tictactoe on your device do not open it on hacknight but directly the tictactoe folder.
 
-next step:
-Open terminal within Vs code and run the following:
-npm install
-npm run compile
-npm run watch
-after you run npm run watch the execution will not complete cause you are using watch which is the correct procedure, after this click f5 or run->start debugging
-you might get a popup but click debug anyway
-Then on the bottom taskbar on VS CODE you will see the extension running click on it and click enter when the run extension drop down is shown .
-Then you will see the extension search window open:
-DO : ctrl+shift+p  (mac users idk cmnd+shift+p i.e wtev the ctrl alternative is)
-In the search bar type TicTacToe or `Start a new TicTacToe game` and voila click on it and youre there
+Here’s a clean, well-formatted **Markdown version** of your instructions — perfect for a `README.md` or setup guide:
 
-If you find the startup confusing let the maintainer know but well will look into how much you have tried before any direct help .
+---
+
+## 🧩 Running the TicTacToe VS Code Extension
+
+Follow these steps to get the extension up and running inside VS Code:
+
+### ⚙️ Setup
+
+1. **Open a terminal** in VS Code.
+2. Run the following commands one by one:
+
+   ```bash
+   npm install
+   npm run compile
+   npm run watch
+   ```
+
+   > 💡 Note:
+   > The `npm run watch` command will **not complete** — this is expected behavior since it continuously watches for changes.
+
+---
+
+### ▶️ Start Debugging the Extension
+
+1. Once `watch` is running, **press `F5`** or go to
+   **Run → Start Debugging** in the menu.
+2. You might see a popup — click **“Debug Anyway”** if prompted.
+3. After that, check the **bottom taskbar** in VS Code:
+
+   * You’ll see the extension running.
+   * Click on it.
+   * When the **Run Extension** dropdown appears, press **Enter**.
+
+---
+
+### 🎮 Launch the TicTacToe Game
+
+1. Open the **Command Palette**:
+
+   * **Windows/Linux:** `Ctrl + Shift + P`
+   * **Mac:** `Cmd + Shift + P`
+
+2. In the search bar, type:
+
+   ```
+   TicTacToe
+   ```
+
+   or
+
+   ```
+   Start a new TicTacToe game
+   ```
+
+3. Select it — and voila! 🎉
+   Your TicTacToe game should now open inside VS Code.
+
+---
+
+### 🧠 Note for Contributors
+
+If you find the startup process confusing, please let the maintainer know.
+However, we’ll first review how much setup you’ve completed before offering direct help.
+
+---
+
 
 
 ## Future Upgrades
