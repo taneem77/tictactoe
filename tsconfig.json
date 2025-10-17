@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                   // Modern JavaScript target
+    "module": "commonjs",                 // Node/extension module system
+    "outDir": "out",                      // Compiled JS output folder
+    "rootDir": "src",                     // Source TypeScript files
+    "strict": true,                       // Enable all strict type checks
+    "esModuleInterop": true,              // Enable import/export interop
+    "skipLibCheck": true,                 // Skip type checking for node_modules
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "lib": ["ES2020", "DOM"],             // Include DOM types for WebView
+    "types": ["node", "webpack-env"]      // Optional: Node + Webpack env types
+  },
+  "exclude": ["node_modules", "media", "out"]
+}

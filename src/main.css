@@ -1,0 +1,97 @@
+/* File: media/main.css */
+
+:root {
+    /* Define custom colors that blend well with VS Code themes */
+    --x-color: var(--vscode-terminal-ansiBrightCyan); /* Bright Cyan for X */
+    --o-color: var(--vscode-terminal-ansiBrightYellow); /* Bright Yellow for O */
+    --hover-color: var(--vscode-list-hoverBackground);
+    --border-color: var(--vscode-editorGroup-border);
+    --status-background: var(--vscode-statusBar-background);
+    --status-foreground: var(--vscode-statusBar-foreground);
+    --winner-background: var(--vscode-terminal-ansiGreen); 
+}
+
+body {
+    background-color: var(--vscode-editor-background);
+    color: var(--vscode-foreground);
+    font-family: var(--vscode-font-family);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* === Status Banner === */
+#status-banner {
+    width: 100%;
+    max-width: 320px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
+    border-radius: 4px;
+    background-color: var(--status-background);
+    color: var(--status-foreground);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.winner-message {
+    background-color: var(--winner-background) !important;
+    color: var(--vscode-editor-background) !important; /* White text on bright status */
+    animation: winner-pulse 1s infinite alternate;
+}
+
+@keyframes winner-pulse {
+    from { box-shadow: 0 0 5px 2px var(--winner-background); }
+    to { box-shadow: 0 0 10px 4px var(--winner-background); }
+}
+
+/* === Game Board Layout === */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 2px; /* Small gap between cells */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* === Individual Cell Styling === */
+.cell {
+    background-color: var(--vscode-editor-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+    font-weight: 900;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.cell:hover:empty {
+    /* Subtle hover effect on empty cells */
+    background-color: var(--hover-color);
+}
+
+/* === X and O Color Themes === */
+.cell.player-x {
+    color: var(--x-color);
+}
+
+.cell.player-o {
+    color: var(--o-color);
+}
+
+/* === Click Animation === */
+.cell.clicked {
+    transform: scale(0.95);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.05s ease-out;
+}
