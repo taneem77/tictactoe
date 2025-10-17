@@ -40,52 +40,58 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.activate = activate;
-const vscode = __importStar(__webpack_require__(1));
+const fs = __importStar(__webpack_require__(1));
+const path = __importStar(__webpack_require__(2));
+const vscode = __importStar(__webpack_require__(3));
 function activate(context) {
-    let panel;
-    context.subscriptions.push(vscode.commands.registerCommand('tictactoe.start', () => {
-        panel = vscode.window.createWebviewPanel('tictactoe', 'Tic Tac Toe', vscode.ViewColumn.One, { enableScripts: true } // very important
+    let disposable = vscode.commands.registerCommand('tictactoe.start', () => {
+        // Create and show a new webview
+        const panel = vscode.window.createWebviewPanel('tictactoe', // Identifies the type of the webview. Used internally
+        'TicTacToe', // Title of the panel displayed to the user
+        vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+        { enableScripts: true } // Webview options. More on these later.
         );
-        panel.webview.html = getWebviewContent();
-        // Handle messages from the WebView
+        // panel.webview.html = getWebviewContent();
+        const filePath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'game.html'));
+        panel.webview.html = fs.readFileSync(filePath.fsPath, 'utf8');
+        vscode.window.showInformationMessage("Let's begin! Your move X");
+        function restartGame(response) {
+            if (response == "Yes") {
+                panel.webview.postMessage({ command: 'restart' });
+            }
+            else {
+                panel.dispose();
+            }
+        }
+        // Handle messages from the webview
         panel.webview.onDidReceiveMessage(message => {
             switch (message.command) {
-                case 'makeMove':
-                    // message.index is the clicked cell
-                    console.log('Move made at cell:', message.index);
-                    // Here you can update game state and send back board
-                    panel?.webview.postMessage({
-                        command: 'updateBoard',
-                        board: ['X', '', '', '', '', '', '', '', ''] // example
-                    });
-                    break;
+                case 'info':
+                    vscode.window.showInformationMessage(message.text);
+                    return;
+                case 'play-again':
+                    vscode.window.showInformationMessage(message.text, "Yes", "No").then(response => restartGame(response));
             }
-        });
-    }));
-}
-function getWebviewContent() {
-    return `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Tic Tac Toe</title>
-            <link rel="stylesheet" href="media/main.css">
-        </head>
-        <body>
-            <div id="status-banner">Game started. X's turn.</div>
-            <div id="game-board">
-                ${Array(9).fill(0).map((_, i) => `<div class="cell" data-index="${i}"></div>`).join('')}
-            </div>
-            <script src="media/main.js"></script>
-        </body>
-        </html>
-    `;
+        }, undefined, context.subscriptions);
+    });
+    context.subscriptions.push(disposable);
 }
 
 
 /***/ }),
 /* 1 */
+/***/ ((module) => {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 2 */
+/***/ ((module) => {
+
+module.exports = require("path");
+
+/***/ }),
+/* 3 */
 /***/ ((module) => {
 
 module.exports = require("vscode");
